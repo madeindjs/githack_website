@@ -1,8 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Url:</strong>
-  <%= @repository.url %>
-</p>
+<h1><%= @repository.url %></h1>
+
+<table>
+  <% @repository.leaks.each do |leak| %>
+  <tr>
+    <td><%= leak.content %></td>
+  </tr>
+  <% end %>
+</table>
 
 <%= link_to 'Back', repositories_path %>

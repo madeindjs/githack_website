@@ -20,6 +20,7 @@ class RepositoriesController < ApplicationController
   # POST /repositories.json
   def create
     @repository = Repository.new(repository_params)
+    @repository.scan_leaks
 
     respond_to do |format|
       if @repository.save
