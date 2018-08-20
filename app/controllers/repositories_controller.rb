@@ -4,12 +4,16 @@ class RepositoriesController < ApplicationController
   # GET /repositories
   # GET /repositories.json
   def index
+    @title = 'Repositories'
     @repositories = Repository.all
   end
 
   # GET /repositories/1
   # GET /repositories/1.json
-  def show; end
+  def show
+    @title = @repository.url
+    @leaks = @repository.leaks.where.not status: :checked
+  end
 
   # GET /repositories/new
   def new

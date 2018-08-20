@@ -13,6 +13,8 @@ class LeaksController < ApplicationController
 
   # PATCH /leaks/1
   def update
+    puts '*' * 80
+    puts params['status'].inspect
     if params['status'] == 'safe'
       @leak.safe!
     else
