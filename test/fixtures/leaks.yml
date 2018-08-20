@@ -2,8 +2,4 @@
 
 one:
   content: MyText
-  repository_id: one
-
-two:
-  content: MyText
-  repository_id: two
+  repository: one

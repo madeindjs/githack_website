@@ -4,9 +4,15 @@
 
 <table>
   <% @repository.leaks.each do |leak| %>
-  <tr>
-    <td><%= leak.content %></td>
-  </tr>
+    <tr>
+      <td><%= leak.content %></td>
+      <td>
+        <% if leak.unchecked? %>
+          <%= button_to 'Mark as unsafe', repository_leak_url(repository_id: leak.repository.id, id: leak.id, safe: :unsafe), method: :patch %>
+          <%= button_to 'Mark as safe', repository_leak_url(repository_id: leak.repository.id, id: leak.id, safe: :safe), method: :patch %>
+        <% end %>
+      </td>
+    </tr>
   <% end %>
 </table>
 

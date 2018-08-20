@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_19_164949) do
+ActiveRecord::Schema.define(version: 2018_08_20_100013) do
 
   create_table "leaks", force: :cascade do |t|
     t.text "content"
     t.integer "repository_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
     t.index ["repository_id"], name: "index_leaks_on_repository_id"
   end
 
