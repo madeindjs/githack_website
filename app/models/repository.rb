@@ -2,6 +2,7 @@ require 'githack'
 
 class Repository < ApplicationRecord
   has_many :leaks
+  enum framework: %i[rails]
 
   def scan_leaks
     git = Githack::RailsRepository.new url

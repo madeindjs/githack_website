@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_20_100013) do
+ActiveRecord::Schema.define(version: 2018_08_20_144055) do
 
   create_table "leaks", force: :cascade do |t|
     t.text "content"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2018_08_20_100013) do
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "framework", default: 0
     t.index ["url"], name: "index_repositories_on_url"
   end
 
