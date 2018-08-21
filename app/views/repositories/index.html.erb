@@ -12,6 +12,7 @@
   <thead>
     <tr>
       <th>Url</th>
+      <th>Framework</th>
       <th>Leak</th>
       <th></th>
     </tr>
@@ -21,6 +22,7 @@
     <% @repositories.each do |repository| %>
       <tr>
         <td><%= repository.url %></td>
+        <th><%= repository.framework %></th>
         <td><%= repository.leaks.count %></td>
         <td>
           <%= link_to 'Show', repository, class: 'btn btn-default' %>

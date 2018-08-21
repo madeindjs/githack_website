@@ -24,16 +24,22 @@ class RepositoriesController < ApplicationController
   # POST /repositories.json
   def create
     @repository = Repository.new(repository_params)
-    @repository.scan_leaks
 
-    respond_to do |format|
-      if @repository.save
-        format.html { redirect_to @repository, notice: 'Repository was successfully created.' }
-        format.json { render :show, status: :created, location: @repository }
-      else
-        format.html { render :new }
-        format.json { render json: @repository.errors, status: :unprocessable_entity }
+    if @repository.valid?
+      @repository.scan_leaks
+
+      respond_to do |format|
+        if @repository.save
+          format.html { redirect_to @repository, notice: 'Repository was successfully created.' }
+          format.json { render :show, status: :created, location: @repository }
+        else
+          format.html { render :new }
+          format.json { render json: @repository.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      flash[:danger] = @repository.errors
+      render :new
     end
   end
 
@@ -56,6 +62,6 @@ class RepositoriesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def repository_params
-    params.require(:repository).permit(:url)
+    params.require(:repository).permit(:url, :framework)
   end
 end

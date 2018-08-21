@@ -1,6 +1,9 @@
 <%= bootstrap_form_with(model: repository, local: true) do |form| %>
 
-<%= form.text_field :url %>
+<% frameworks_options = Githack::Repositories.get_availables_frameworks_versions_pretty.map{|f| [f,f]} %>
 
-<%= form.submit %>
+  <%= form.text_field :url %>
+  <%= form.select :framework, frameworks_options %>
+
+  <%= form.submit %>
 <% end %>

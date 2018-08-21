@@ -17,7 +17,7 @@ class RepositoriesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create repository' do
     assert_difference('Repository.count') do
-      post repositories_url, params: { repository: { url: @repository.url } }
+      post repositories_url, params: { repository: { url: @repository.url, framework: 'Rails::V5' } }
     end
 
     assert_redirected_to repository_url(Repository.last)

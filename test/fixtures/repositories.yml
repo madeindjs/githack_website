@@ -2,3 +2,4 @@
 
 one:
   url: https://github.com/raspberrycook/website
+  framework: Rails::V5

@@ -31,7 +31,7 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
-gem 'githack', '~> 0.2'
+gem 'githack', '~> 0.3'
 
 gem "bootstrap_form", ">= 4.0.0.alpha1"
 
