@@ -1,15 +1,22 @@
-<%= bootstrap_form_with(model: repository, local: true) do |form| %>
+<%
+inline = false unless defined? inline
+layout = inline ? :inline : :horizontal
+%>
 
-<% frameworks_options = Githack::Repositories.get_availables_frameworks_versions_pretty.map{|f| [f,f]} %>
+  <%= bootstrap_form_with(model: repository, local: true, layout: layout) do |form| %>
 
-  <%= form.text_field :url %>
-  <%= form.select :framework, frameworks_options %>
-  <p class="text-muted">
-    <small>Fork
-      <%= link_to link_to('Githack gem', 'https://github.com/madeindjs/githack') %>
-      to support more frameworks
-    </small>
-  </p>
+  <% frameworks_options = Githack::Repositories.get_availables_frameworks_versions_pretty.map{|f| [f,f]} %>
 
-  <%= form.submit %>
-<% end %>
+    <%= form.text_field :url, hide_label: inline %>
+    <%= form.select :framework, frameworks_options, hide_label: inline %>
+    <% unless inline %>
+      <p class="text-muted">
+        <small>Fork
+          <%= link_to link_to('Githack gem', 'https://github.com/madeindjs/githack') %>
+          to support more frameworks
+        </small>
+      </p>
+    <% end %>
+
+    <%= form.submit %>
+  <% end %>
