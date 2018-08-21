@@ -1,16 +1,6 @@
 class LeaksController < ApplicationController
   before_action :set_leak, only: %i[show edit update]
 
-  # GET /leaks
-  # GET /leaks.json
-  def index
-    @leaks = Leak.all
-  end
-
-  # GET /leaks/1
-  # GET /leaks/1.json
-  def show; end
-
   # PATCH /leaks/1
   def update
     if params['status'] == 'safe'
