@@ -3,3 +3,5 @@
 one:
   content: MyText
   repository: one
+  file: /tmp/hello/test.yml
+  sha: 123456azerty

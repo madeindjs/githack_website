@@ -28,6 +28,14 @@ class Repository < ApplicationRecord
     end
   end
 
+  def unchecked_leaks
+    leaks.where(status: :unchecked)
+  end
+
+  def unsafe_leaks
+    leaks.where(status: :unsafe)
+  end
+
   private
 
   def framework_exists

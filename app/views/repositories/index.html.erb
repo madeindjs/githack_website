@@ -22,16 +22,16 @@
     <% @repositories.each do |repository| %>
       <tr>
         <td><%= repository.url %></td>
-        <th><%= repository.framework %></th>
+        <td><%= repository.framework %></td>
         <td>
-          <%= repository.leaks.where(status: :unchecked).count %>
+          <%= repository.unsafe_leaks.count %>
           to check /
-          <%= repository.leaks.where(status: :unsafe).count %>
+          <%= repository.unchecked_leaks.count %>
           unsafe
         </td>
         <td>
-          <%= link_to 'Show', repository, class: 'btn btn-default' %>
-          <%= link_to 'Destroy', repository, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <%= link_to 'Show', repository, class: 'btn btn-default btn-sm' %>
+          <%= link_to 'Destroy', repository, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
         </td>
       </tr>
     <% end %>
