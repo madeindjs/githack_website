@@ -1,0 +1,12 @@
+<h1>Import</h1>
+
+<p>Import data from API (work only with
+  <%= link_to 'Github API', 'https://api.github.com/search/' %>)
+  <%= bootstrap_form_tag url: import_repositories_path do |form| %>
+  <%= form.text_field :url %>
+
+  <%= form.select :framework, Githack::Repositories.get_availables_frameworks_versions_pretty.map{|f| [f,f]} %>
+
+  <%= form.submit %>
+<% end %>
+</p>

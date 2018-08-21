@@ -12,23 +12,26 @@ class RepositoriesController < ApplicationController
   end
 
   def import
-    return unless params[:url]
-    params[:url] = 'https://api.github.com/search/repositories?q=web=website+rails+language:ruby'
+    # params[:url] = 'https://api.github.com/search/repositories?q=web=website+rails+language:ruby'
     framework = params[:framework]
+    return unless params[:url]
 
     # hello
     uri = URI(params[:url])
     response = Net::HTTP.get(uri)
     data = JSON.parse(response)
 
-    threads = data['items'].map do |item|
-      Thread.new do
-        r = Repository.create!(url: item['url'], framework: framework)
-        r.scan_leaks
-      end
-    end
+    # threads = data['items'].map do |item|
+    #   Thread.new do
+    #     r = Repository.create!(url: item['url'], framework: framework)
+    #     r.scan_leaks
+    #   end
+    # end
 
-    threads.each(&:join)
+    data['items'].map do |item|
+      r = Repository.create!(url: item['html_url'], framework: framework)
+      r.scan_leaks
+    end
   end
 
   # GET /repositories/1
