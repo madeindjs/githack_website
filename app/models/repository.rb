@@ -36,6 +36,10 @@ class Repository < ApplicationRecord
     leaks.where(status: :unsafe)
   end
 
+  def safe?
+    (unchecked_leaks.count == 0) && (unsafe_leaks.count == 0)
+  end
+
   private
 
   def framework_exists

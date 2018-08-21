@@ -5,7 +5,7 @@ class RepositoriesController < ApplicationController
   # GET /repositories.json
   def index
     @title = 'Repositories'
-    @repositories = Repository.includes(:leaks).all.order(:url)
+    @repositories = Repository.includes(:leaks).all.order(:url).page params[:page]
   end
 
   # GET /repositories/1

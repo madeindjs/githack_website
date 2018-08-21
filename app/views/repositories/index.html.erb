@@ -20,13 +20,13 @@
 
   <tbody>
     <% @repositories.each do |repository| %>
-      <tr>
-        <td><%= link_to repository.url, repository.url %></td>
+      <tr class="<%= css_class_color repository %>">
+        <td><%= repository.url %></td>
         <td><%= repository.framework %></td>
         <td>
-          <%= repository.unsafe_leaks.count %>
-          to check /
           <%= repository.unchecked_leaks.count %>
+          to check /
+          <%= repository.unsafe_leaks.count %>
           unsafe
         </td>
         <td><%= link_to 'Show', repository %></td>
@@ -35,6 +35,6 @@
   </tbody>
 </table>
 
-<br>
+<%= paginate @repositories, theme: 'twitter-bootstrap-4' %>
 
 <%= link_to 'New Repository', new_repository_path, class: 'btn btn-primary' %>
