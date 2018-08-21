@@ -23,7 +23,12 @@
       <tr>
         <td><%= repository.url %></td>
         <th><%= repository.framework %></th>
-        <td><%= repository.leaks.count %></td>
+        <td>
+          <%= repository.leaks.where(status: :unchecked).count %>
+          to check /
+          <%= repository.leaks.where(status: :unsafe).count %>
+          unsafe
+        </td>
         <td>
           <%= link_to 'Show', repository, class: 'btn btn-default' %>
           <%= link_to 'Destroy', repository, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>

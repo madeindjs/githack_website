@@ -5,14 +5,21 @@ class RepositoriesController < ApplicationController
   # GET /repositories.json
   def index
     @title = 'Repositories'
-    @repositories = Repository.all
+    @repositories = Repository.includes(:leaks).all
   end
 
   # GET /repositories/1
   # GET /repositories/1.json
   def show
     @title = @repository.url
-    @leaks = @repository.leaks.where.not status: :checked
+
+    @leaks = @repository.leaks
+
+    @unchecked_leaks = @leaks.select(&:unchecked?)
+    @safe_leaks = @leaks.select(&:safe?)
+    @unsafe_leaks = @leaks.select(&:unsafe?)
+
+    @unchecked_leak_exists = @unchecked_leaks.count > 0
   end
 
   # GET /repositories/new

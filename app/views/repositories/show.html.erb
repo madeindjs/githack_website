@@ -8,5 +8,41 @@
 
 <h1><%= link_to @title, @repository.url %></h1>
 
-<h2>leaks</h2>
-<%= render 'leaks/cards', leaks: @leaks %>
+<!-- navigation menu -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <% if @unchecked_leak_exists #display unchecked link only if data exist %>
+      <a class="nav-link active" href="#unchecked_leaks_tab" role="tab" data-toggle="tab">
+        Unchecked
+        <span class="badge badge-secondary"><%= @unchecked_leaks.count %></span>
+      </a>
+    <% end %>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link <%= 'active' unless @unchecked_leak_exists %>" href="#unsafe_leaks_tab" role="tab" data-toggle="tab">
+      Unsafe
+      <span class="badge badge-secondary"><%= @unsafe_leaks.count %></span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#safe_leaks_tab" role="tab" data-toggle="tab">
+      Safe
+      <span class="badge badge-secondary"><%= @safe_leaks.count %></span>
+    </a>
+  </li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <% if @unchecked_leak_exists # display unchecked link only if data exist %>
+    <div role="tabpanel" class="tab-pane active" id="unchecked_leaks_tab">
+      <%= render 'leaks/cards', leaks: @unchecked_leaks %>
+    </div>
+  <% end %>
+  <div role="tabpanel" class="tab-pane <%= 'active' unless @unchecked_leak_exists %>" id="unsafe_leaks_tab">
+    <%= render 'leaks/cards', leaks: @unsafe_leaks %>
+  </div>
+  <div role="tabpanel" class="tab-pane" id="safe_leaks_tab">
+    <%= render 'leaks/cards', leaks: @safe_leaks %>
+  </div>
+</div>
