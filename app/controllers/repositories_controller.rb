@@ -1,3 +1,6 @@
+require 'net/http'
+require 'json'
+
 class RepositoriesController < ApplicationController
   before_action :set_repository, only: %i[show edit update destroy]
 
@@ -6,6 +9,26 @@ class RepositoriesController < ApplicationController
   def index
     @title = 'Repositories'
     @repositories = Repository.includes(:leaks).all.order(:url).page params[:page]
+  end
+
+  def import
+    return unless params[:url]
+    params[:url] = 'https://api.github.com/search/repositories?q=web=website+rails+language:ruby'
+    framework = params[:framework]
+
+    # hello
+    uri = URI(params[:url])
+    response = Net::HTTP.get(uri)
+    data = JSON.parse(response)
+
+    threads = data['items'].map do |item|
+      Thread.new do
+        r = Repository.create!(url: item['url'], framework: framework)
+        r.scan_leaks
+      end
+    end
+
+    threads.each(&:join)
   end
 
   # GET /repositories/1
