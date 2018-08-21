@@ -1,19 +1,33 @@
-<% leaks.each do |leak| %>
+<div class="row">
+  <% if leaks.count > 0 %>
 
-  <% if leak.unsafe? %>
+    <% leaks.each do |leak| %>
+      <div class="col-lg-6">
+        <div class="card my-4">
+          <div class="card-header">
+            <i><%= leak.relative_file_path %></i>
+            @
+            <strong><%= leak.sha[0..7] %></strong>
+          </div>
 
-    <p class="text-danger"><%= leak.content %></p>
-    <% elsif leak.safe? %>
-      <p class="text-muted"><%= leak.content %></p>
-    <% else %>
-      <p ><%= leak.content %></p>
+          <div class="card-body">
+            <%= display_leak_content leak %>
+            <div class="btn-group">
+              <%= button_to 'mark as unsafe', repository_leak_url(repository_id: leak.repository.id, id: leak.id, status: :unsafe), method: :patch, class: 'btn btn-danger' unless leak.unsafe? %>
+              <%= button_to 'mark as safe', repository_leak_url(repository_id: leak.repository.id, id: leak.id, status: :safe), method: :patch, class: 'btn btn-success' unless leak.safe? %>
+            </div>
+          </div>
+
+        </div>
+      </div>
     <% end %>
 
-    <div class="btn-group">
-      <%= button_to 'mark as unsafe', repository_leak_url(repository_id: leak.repository.id, id: leak.id, status: :unsafe), method: :patch, class: 'btn btn-danger' unless leak.unsafe? %>
-      <%= button_to 'mark as safe', repository_leak_url(repository_id: leak.repository.id, id: leak.id, status: :safe), method: :patch, class: 'btn btn-success' unless leak.safe? %>
+  <% else %>
+    <div class="col">
+
+      <div class="alert alert-info" role="alert">
+        No leaks
+      </div>
     </div>
-
-    <hr>
-
   <% end %>
+</div>

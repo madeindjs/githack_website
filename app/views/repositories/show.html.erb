@@ -6,7 +6,7 @@
   </ol>
 </nav>
 
-<h1><%= @title %></h1>
+<h1><%= link_to @title, @repository.url %></h1>
 
 <h2>leaks</h2>
 <%= render 'leaks/cards', leaks: @leaks %>

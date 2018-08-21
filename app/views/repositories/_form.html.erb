@@ -4,6 +4,12 @@
 
   <%= form.text_field :url %>
   <%= form.select :framework, frameworks_options %>
+  <p class="text-muted">
+    <small>Fork
+      <%= link_to link_to('Githack gem', 'https://github.com/madeindjs/githack') %>
+      to support more frameworks
+    </small>
+  </p>
 
   <%= form.submit %>
 <% end %>
