@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   end
 
   match 'import_repositories', to: 'repositories#import', via: %i[get post]
+  get 'random_repository' => 'repositories#random'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'repositories#index'
 end

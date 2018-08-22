@@ -11,6 +11,18 @@ class RepositoriesController < ApplicationController
     @repositories = Repository.includes(:leaks).all.order(:url).page params[:page]
   end
 
+  # GET /repositories/random
+  def random
+    r = Repository.joins(:leaks).where(leaks: { status: :unchecked }).first
+
+    if r
+      redirect_to r
+    else
+      flash[:warning] = 'No more repo unsafe :)'
+      redirect_back fallback_location: root_path
+    end
+  end
+
   def import
     # params[:url] = 'https://api.github.com/search/repositories?q=web=website+rails+language:ruby'
     framework = params[:framework]
@@ -29,7 +41,8 @@ class RepositoriesController < ApplicationController
     # end
 
     data['items'].map do |item|
-      r = Repository.create!(url: item['html_url'], framework: framework)
+      r = Repository.new(url: item['html_url'], framework: framework)
+      next unless r.valid?
       r.scan_leaks
     end
   end
